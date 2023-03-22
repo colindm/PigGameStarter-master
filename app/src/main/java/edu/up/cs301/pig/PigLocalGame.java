@@ -46,14 +46,15 @@ public class PigLocalGame extends LocalGame {
      */
     @Override
     protected boolean makeMove(GameAction action) {
+        // Pic Hold Action
         if(action instanceof PigHoldAction){
-            if(state.getPlayerID() == 0) {
+            if(state.getPlayerID() == 0) { // IF Player 0
                 state.setPlayer0Score(state.getPlayer0Score() + state.getRunningTotal());
                 state.setRunningTotal(0);
                 state.setPlayerID(1);
                 return true;
             }
-            else{
+            else{                          // IF Player 1
                 state.setPlayer1Score(state.getPlayer1Score() + state.getRunningTotal());
                 state.setRunningTotal(0);
                 state.setPlayerID(0);
@@ -61,16 +62,16 @@ public class PigLocalGame extends LocalGame {
             }
 
         }
-
+        // Pig Roll Action
         if(action instanceof PigRollAction){
             Random rand = new Random();
             int roll = rand.nextInt(6) + 1;
             state.setDieValue(roll);
 
-            if(state.getDieValue() != 1){
+            if(state.getDieValue() != 1){ // IF Die is 1
                 state.setRunningTotal(state.getRunningTotal() + roll);
             }
-            else{
+            else{                         // IF Die is not 1
                 state.setRunningTotal(0);
 
                 if(state.getPlayerID() == 0){state.setPlayerID(1);}

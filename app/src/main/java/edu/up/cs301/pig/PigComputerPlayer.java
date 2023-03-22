@@ -33,18 +33,18 @@ public class PigComputerPlayer extends GameComputerPlayer {
         Random rand = new Random();
         PigGameState stateCopy = new PigGameState((PigGameState)info); // Copy Game State for Comp Player
 
-        if(stateCopy.getPlayerID() != super.playerNum){
+        if(stateCopy.getPlayerID() != this.playerNum){
             return;
         }
         else{
             int actionNum = rand.nextInt(2);
             if(actionNum == 0){ // 0 -> Roll Action
                 PigRollAction action = new PigRollAction(this);
-                super.game.sendAction(action);
+                this.game.sendAction(action);
             }
             else{ // 1 -> Hold Action
                 PigHoldAction action = new PigHoldAction(this);
-                super.game.sendAction(action);
+                this.game.sendAction(action);
             }
         }
     }//receiveInfo

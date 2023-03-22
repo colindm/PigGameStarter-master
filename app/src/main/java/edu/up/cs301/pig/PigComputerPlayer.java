@@ -1,5 +1,7 @@
 package edu.up.cs301.pig;
 
+import android.util.Log;
+
 import java.util.Random;
 
 import edu.up.cs301.game.GameComputerPlayer;
@@ -37,15 +39,26 @@ public class PigComputerPlayer extends GameComputerPlayer {
             return;
         }
         else{
-            int actionNum = rand.nextInt(2);
-            if(actionNum == 0){ // 0 -> Roll Action
+            Log.i("PigComputerPlayer", "Computer Player Turn");
+            int points = stateCopy.getRunningTotal();
+            if(points < 20){
                 PigRollAction action = new PigRollAction(this);
                 super.game.sendAction(action);
             }
-            else{ // 1 -> Hold Action
+            else{
                 PigHoldAction action = new PigHoldAction(this);
                 super.game.sendAction(action);
             }
+
+//            int actionNum = rand.nextInt(2);
+//            if(actionNum == 0){ // 0 -> Roll Action
+//                PigRollAction action = new PigRollAction(this);
+//                super.game.sendAction(action);
+//            }
+//            else{ // 1 -> Hold Action
+//                PigHoldAction action = new PigHoldAction(this);
+//                super.game.sendAction(action);
+//            }
         }
     }//receiveInfo
 

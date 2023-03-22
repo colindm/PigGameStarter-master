@@ -64,8 +64,6 @@ public class PigHumanPlayer extends GameHumanPlayer implements OnClickListener {
         //TODO You will implement this method to receive state objects from the game
         Log.i("PigHumanPlayer", "receiveInfo: " + info.getClass().toString());
         this.flash(Color.RED, 250);
-
-
     }//receiveInfo
 
     /**

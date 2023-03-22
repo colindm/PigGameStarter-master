@@ -7,6 +7,8 @@ import edu.up.cs301.game.infoMsg.GameState;
 
 import android.util.Log;
 
+import java.util.Random;
+
 // dummy comment, to see if commit and push work from srvegdahl account
 
 /**
@@ -17,7 +19,7 @@ import android.util.Log;
  */
 public class PigLocalGame extends LocalGame {
 
-    private PigGameState officialGameState;
+    private PigGameState state;
 
     /**
      * This ctor creates a new game state
@@ -25,7 +27,7 @@ public class PigLocalGame extends LocalGame {
 
 
     public PigLocalGame() {
-        officialGameState = new PigGameState();
+        state = new PigGameState();
     }
 
     /**
@@ -33,7 +35,7 @@ public class PigLocalGame extends LocalGame {
      */
     @Override
     protected boolean canMove(int playerIdx) {
-        if(playerIdx == officialGameState.getPlayerID()){return true;}
+        if(playerIdx == state.getPlayerID()){return true;}
         return false;
     }
 
@@ -44,7 +46,39 @@ public class PigLocalGame extends LocalGame {
      */
     @Override
     protected boolean makeMove(GameAction action) {
-        //TODO  You will implement this method
+        if(action instanceof PigHoldAction){
+            if(state.getPlayerID() == 0) {
+                state.setPlayer0Score(state.getPlayer0Score() + state.getRunningTotal());
+                state.setRunningTotal(0);
+                state.setPlayerID(1);
+                return true;
+            }
+            else{
+                state.setPlayer1Score(state.getPlayer1Score() + state.getRunningTotal());
+                state.setRunningTotal(0);
+                state.setPlayerID(0);
+                return true;
+            }
+
+        }
+
+        if(action instanceof PigRollAction){
+            Random rand = new Random();
+            int roll = rand.nextInt(6) + 1;
+            state.setDieValue(roll);
+
+            if(state.getDieValue() != 1){
+                state.setRunningTotal(state.getRunningTotal() + roll);
+            }
+            else{
+                state.setRunningTotal(0);
+
+                if(state.getPlayerID() == 0){state.setPlayerID(1);}
+                else{state.setPlayerID(0);}
+            }
+            return true;
+        }
+
         return false;
     }//makeMove
 

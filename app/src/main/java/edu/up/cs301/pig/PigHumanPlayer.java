@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+import android.util.Log;
 
 /**
  * A GUI for a human to play Pig. This default version displays the GUI but is incomplete
@@ -61,6 +62,7 @@ public class PigHumanPlayer extends GameHumanPlayer implements OnClickListener {
     @Override
     public void receiveInfo(GameInfo info) {
         //TODO You will implement this method to receive state objects from the game
+        Log.i("PigHumanPlayer", "receiveInfo: " + info.getClass().toString());
     }//receiveInfo
 
     /**

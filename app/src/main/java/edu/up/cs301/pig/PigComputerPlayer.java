@@ -1,5 +1,7 @@
 package edu.up.cs301.pig;
 
+import java.util.Random;
+
 import edu.up.cs301.game.GameComputerPlayer;
 import edu.up.cs301.game.actionMsg.GameAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
@@ -28,7 +30,23 @@ public class PigComputerPlayer extends GameComputerPlayer {
      */
     @Override
     protected void receiveInfo(GameInfo info) {
-        PigGameState stateCopy = new PigGameState()
+        Random rand = new Random();
+        PigGameState stateCopy = new PigGameState((PigGameState)info); // Copy Game State for Comp Player
+
+        if(stateCopy.getPlayerID() != super.playerNum){
+            return;
+        }
+        else{
+            int actionNum = rand.nextInt(2);
+            if(actionNum == 0){ // 0 -> Roll Action
+                PigRollAction action = new PigRollAction(this);
+                super.game.sendAction(action);
+            }
+            else{ // 1 -> Hold Action
+                PigHoldAction action = new PigHoldAction(this);
+                super.game.sendAction(action);
+            }
+        }
     }//receiveInfo
 
 }
